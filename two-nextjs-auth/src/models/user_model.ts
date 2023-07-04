@@ -9,7 +9,7 @@ const UserSchema: Schema = new Schema(
     },
     email: {
       type: String,
-      required: [true, "Please provide a email "], 
+      required: [true, "Please provide a email "],
       unique: true,
     },
     password: {
@@ -20,10 +20,10 @@ const UserSchema: Schema = new Schema(
       type: Boolean,
       default: false,
     },
-    forgotPasswordToken: String,
-    forgotPasswordExpiry: Date,
-    verifyToken: String,
-    verifyTokenExpiry: Date,
+    forgotPasswordToken: { type: String, required: false },
+    forgotPasswordExpiry: { type: Date, required: false },
+    verifyToken: { type: String, required: false },
+    verifyTokenExpiry: { type: Date, required: false },
   },
   { timestamps: true }
 );
