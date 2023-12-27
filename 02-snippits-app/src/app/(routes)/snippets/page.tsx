@@ -3,6 +3,7 @@ import { Snippit } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
 
+
 export default async function SeeSnippets() {
   const snippets = await db.snippit.findMany();
   const renderedSnippets = snippets.map((val: Snippit, i: number) => (

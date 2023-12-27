@@ -62,3 +62,12 @@ export default async function SnippetSlug(props: { params: { id: string } }) {
     </center>
   );
 }
+
+
+export async function generateStaticParams() {
+  const snippets = await db.snippit.findMany({});
+
+  return snippets.map((val) => ({
+    id: val.id.toString(),
+  }))
+}

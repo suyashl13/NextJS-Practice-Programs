@@ -1,33 +1,19 @@
+'use client'
+
 import React from "react";
-import { db } from '@/db'
-import { redirect } from "next/navigation";
+import { useFormState } from "react-dom";
+import * as actions from "@/_actions";
 
 export default function CreateSnippetPage() {
 
-  async function createSnippet(formData: FormData) {
-    'use server';
-
-    const title: string = formData.get('title') as string;
-    const code : string= formData.get('code') as string;
-
-    const snippet =  await db.snippit.create({
-      data: {
-        title: title,
-        code: code,
-      }
-    });
-
-    console.log(snippet);
-
-    redirect('/');
-  }
+  const [formState, action] = useFormState(actions.createSnippet, {message: ''});
 
   return (
     <center>
       <div className="container">
         <div className="sm:mx-10 lg:mx-40">
         <p className="text-2xl mt-10 text-start ">Create Snippet</p>
-          <form action={createSnippet} className="mt-5 border p-4 border-gray-200 rounded-md shadow">
+          <form action={action} className="mt-5 border p-4 border-gray-200 rounded-md shadow">
             <div className="grid grid-cols-2 grid-rows-1">
             <p className="text-start text-lg font-semibold">Title</p>
               <div className="flex flex-col">
@@ -44,6 +30,11 @@ export default function CreateSnippetPage() {
               <div className="bg-none"></div>
             </div>
             <hr className="my-4" />
+            {
+              formState.message ? <p className="text-red-500 px-3 py-2 text-start border-red-300 border bg-red-100 p-1 rounded-md">{formState.message}</p>  : null
+            }
+            <hr className="my-4" />
+            
             <div className="flex justify-end">
               <button className="bg-purple-500 text-white p-1 px-3 active:shadow-sm active:bg-purple-700 active:text-stale-500 rounded-md">Submit</button>
             </div>
